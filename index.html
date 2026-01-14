@@ -7,53 +7,50 @@
 <style>
   body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:#000;color:#fff;display:flex;min-height:100vh;align-items:center;justify-content:center;margin:0}
   .c{max-width:520px;padding:24px;text-align:center}
-  h1{font-size:1.3rem;margin:0 0 12px}
-  ol{text-align:left;margin:12px auto;padding-left:1.1rem}
-  li{margin:8px 0}
+  .cover{width:100%;height:auto;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.6);display:block;margin:0 auto}
   .btn{display:inline-block;margin-top:14px;padding:10px 16px;background:#fff;color:#000;border-radius:8px;text-decoration:none}
   .small{opacity:.85;font-size:.9rem;margin-top:10px}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 </style>
 <script>
 (function(){
-  // === CHANGE THIS to your real destination (Linktree, Instagram, etc.) ===
   var REAL = "https://hoo.be/lukemimo";
+  // image path for the uploaded file (at repo root)
+  var IMAGE = "assetscover.jpg";
 
-  // list of substrings that often appear in TikTok / Bytedance in-app UAs
   var tikTokMarkers = [
-    "bytedance",
-    "bytedancewebview",
-    "musical_ly",
-    "musically",
-    "appname/musical_ly",
-    "tiktok",
-    "trill"
+    "bytedance","bytedancewebview","musical_ly","musically","appname/musical_ly","tiktok","trill"
   ];
-
   var ua = (navigator.userAgent || "").toLowerCase();
-  // detect if this is TikTok's in-app browser
   var isTikTok = tikTokMarkers.some(function(m){ return ua.indexOf(m) !== -1; });
-
-  // If NOT TikTok, redirect immediately to the REAL link.
-  // Use location.replace so the current page is not kept in history.
   if(!isTikTok){
-    // Extra small safety: if REAL is empty, do nothing.
     if (REAL && REAL.indexOf("http") === 0) {
       window.location.replace(REAL);
     }
+    return;
   }
+
+  document.addEventListener("DOMContentLoaded", function(){
+    var img = document.getElementById("cover-img");
+    if(img){
+      img.src = IMAGE;
+      img.alt = "Open in external browser — tap the three dots and choose Open in external browser";
+    }
+  });
 })();
 </script>
 </head>
 <body>
   <div class="c">
-    <h1>Open this link in your phone browser</h1>
-    <ol>
-      <li><strong>Tap the three dots</strong> (top-right) in this screen.</li>
-      <li>Select <strong>Open in external browser</strong> (Safari or Chrome).</li>
-      <li>The page will then load the real link automatically.</li>
-    </ol>
-    <a class="btn" href="https://hoo.be/lukemimo" target="_blank" rel="noopener noreferrer">Open now (if your browser supports it)</a>
-    <div class="small">If you’re already in Safari/Chrome, reload the page to go to the link.</div>
+    <!-- Image shown for TikTok in-app browser -->
+    <img id="cover-img" class="cover" src="" alt="" />
+
+    <!-- Fallback small text & button (kept for accessibility and browsers that support it) -->
+    <div class="small" style="margin-top:12px">
+      If you don’t see the link open automatically, tap the three dots (top-right) and choose <strong>Open in external browser</strong>.
+    </div>
+    <a class="btn" href="https://hoo.be/lukemimo" target="_blank" rel="noopener noreferrer">Open now</a>
+    <span class="sr-only">If you’re already in Safari/Chrome, reload the page to go to the link.</span>
   </div>
 </body>
 </html>
