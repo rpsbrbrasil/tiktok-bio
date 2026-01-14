@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Open in external browser</title>
+<style>
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:#000;color:#fff;display:flex;min-height:100vh;align-items:center;justify-content:center;margin:0}
+  .c{max-width:520px;padding:24px;text-align:center}
+  h1{font-size:1.3rem;margin:0 0 12px}
+  ol{text-align:left;margin:12px auto;padding-left:1.1rem}
+  li{margin:8px 0}
+  .btn{display:inline-block;margin-top:14px;padding:10px 16px;background:#fff;color:#000;border-radius:8px;text-decoration:none}
+  .small{opacity:.85;font-size:.9rem;margin-top:10px}
+</style>
+<script>
+(function(){
+  var REAL = "https://hoo.be/lukemimo";
+  var ua = (navigator.userAgent || "").toLowerCase();
+  var tikTokMarkers = ["bytedance","bytedancewebview","musical_ly","musically","appname/musical_ly","tiktok","trill"];
+  var isTikTok = tikTokMarkers.some(function(m){ return ua.indexOf(m) !== -1; });
+  if(!isTikTok){
+    window.location.replace(REAL);
+  }
+})();
+</script>
+</head>
+<body>
+  <div class="c">
+    <h1>Open this link in your phone browser</h1>
+    <ol>
+      <li><strong>Tap the three dots</strong> (top-right) in this screen.</li>
+      <li>Select <strong>Open in external browser</strong> (Safari or Chrome).</li>
+      <li>The page will then load the real link automatically.</li>
+    </ol>
+    <a class="btn" href="https://hoo.be/lukemimo" target="_blank" rel="noopener">Open now (if your browser supports it)</a>
+    <div class="small">If you’re already in Safari/Chrome, reload the page to go to the link.</div>
+  </div>
+</body>
+</html>
