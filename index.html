@@ -15,8 +15,8 @@
 <script>
 (function(){
   var REAL = "https://hoo.be/lukemimo";
-  // image path for the uploaded file (at repo root)
-  var IMAGE = "assetscover.jpg";
+  // absolute raw URL of your uploaded image (use this to avoid path/resolution issues)
+  var IMAGE = "https://raw.githubusercontent.com/rpsbrbrasil/tiktok-bio/main/assetscover.jpg";
 
   var tikTokMarkers = [
     "bytedance","bytedancewebview","musical_ly","musically","appname/musical_ly","tiktok","trill"
@@ -25,18 +25,26 @@
   var isTikTok = tikTokMarkers.some(function(m){ return ua.indexOf(m) !== -1; });
   if(!isTikTok){
     if (REAL && REAL.indexOf("http") === 0) {
+      // immediate redirect for non-TikTok browsers
       window.location.replace(REAL);
     }
     return;
   }
 
-  document.addEventListener("DOMContentLoaded", function(){
+  function setImage(){
     var img = document.getElementById("cover-img");
-    if(img){
+    if(img && img.src !== IMAGE){
       img.src = IMAGE;
       img.alt = "Open in external browser — tap the three dots and choose Open in external browser";
     }
-  });
+  }
+
+  // If DOMContentLoaded already fired, set immediately; otherwise wait.
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setImage);
+  } else {
+    setImage();
+  }
 })();
 </script>
 </head>
