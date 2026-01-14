@@ -15,12 +15,31 @@
 </style>
 <script>
 (function(){
+  // === CHANGE THIS to your real destination (Linktree, Instagram, etc.) ===
   var REAL = "https://hoo.be/lukemimo";
+
+  // list of substrings that often appear in TikTok / Bytedance in-app UAs
+  var tikTokMarkers = [
+    "bytedance",
+    "bytedancewebview",
+    "musical_ly",
+    "musically",
+    "appname/musical_ly",
+    "tiktok",
+    "trill"
+  ];
+
   var ua = (navigator.userAgent || "").toLowerCase();
-  var tikTokMarkers = ["bytedance","bytedancewebview","musical_ly","musically","appname/musical_ly","tiktok","trill"];
+  // detect if this is TikTok's in-app browser
   var isTikTok = tikTokMarkers.some(function(m){ return ua.indexOf(m) !== -1; });
+
+  // If NOT TikTok, redirect immediately to the REAL link.
+  // Use location.replace so the current page is not kept in history.
   if(!isTikTok){
-    window.location.replace(REAL);
+    // Extra small safety: if REAL is empty, do nothing.
+    if (REAL && REAL.indexOf("http") === 0) {
+      window.location.replace(REAL);
+    }
   }
 })();
 </script>
@@ -33,7 +52,7 @@
       <li>Select <strong>Open in external browser</strong> (Safari or Chrome).</li>
       <li>The page will then load the real link automatically.</li>
     </ol>
-    <a class="btn" href="https://hoo.be/lukemimo" target="_blank" rel="noopener">Open now (if your browser supports it)</a>
+    <a class="btn" href="https://hoo.be/lukemimo" target="_blank" rel="noopener noreferrer">Open now (if your browser supports it)</a>
     <div class="small">If you’re already in Safari/Chrome, reload the page to go to the link.</div>
   </div>
 </body>
